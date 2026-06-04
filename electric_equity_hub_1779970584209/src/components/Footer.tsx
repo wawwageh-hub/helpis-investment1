@@ -8,8 +8,7 @@ export const Footer = () => {
         <div className="grid md:grid-cols-4 gap-12 mb-20">
           <div className="col-span-2">
             <div className="flex items-center gap-2 mb-6">
-              <Zap className="w-6 h-6 text-primary" />
-              <span className="text-xl font-bold tracking-tighter text-foreground uppercase">Helpis</span>
+<img src="/logo.jpg.jpeg" className="h-14 w-auto rounded-xl border-4 border-yellow-400 p-1" alt="Helpis Logo" />
             </div>
             <p className="text-muted-foreground max-w-sm font-light leading-relaxed">
               Pioneering the next generation of electric vehicle infrastructure. We combine luxury design with sustainable technology to create investment-grade charging solutions.
