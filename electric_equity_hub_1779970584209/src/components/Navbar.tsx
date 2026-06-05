@@ -22,7 +22,7 @@ export const Navbar = () => {
       }`}
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
-<div className="flex items-center gap-2 py-2">
+<div className="flex items-center gap-2">
 <img src="/logo.jpg.jpeg" className="h-14 w-auto rounded-xl border-4 border-yellow-400 p-1" alt="Helpis Logo" />
         </div>
 
