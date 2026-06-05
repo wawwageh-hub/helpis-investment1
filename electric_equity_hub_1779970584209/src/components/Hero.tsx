@@ -5,7 +5,7 @@ import { ChevronRight, Shield, TrendingUp, Zap } from 'lucide-react';
 
 export const Hero = () => {
   return (
-    <section id="vision" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-36">
+    <section id="vision" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-32">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <img
