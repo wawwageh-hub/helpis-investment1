@@ -36,12 +36,6 @@ export const Hero = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-
-
-
-
-              Our Infrastructure
-
           </div>
         </motion.div>
 
