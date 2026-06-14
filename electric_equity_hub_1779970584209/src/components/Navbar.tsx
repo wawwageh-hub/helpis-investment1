@@ -36,9 +36,6 @@ export const Navbar = () => {
               {item}
             </a>
           ))}
-          <Button variant="outline" className="border-primary/50 hover:bg-primary/10">
-            Inquire Now
-          </Button>
         </div>
 
         <button
