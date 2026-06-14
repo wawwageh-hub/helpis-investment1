@@ -33,7 +33,7 @@ export const ContactSection = () => {
 
             <div className="space-y-6">
               {[
-                { icon: MapPin, label: 'Headquarters', value: '71 Luxury Ave, Geneva, CH' },
+                { icon: MapPin, label: 'Headquarters', value: '3 Homosani St Ibn sendr sq Cairo' },
                 { icon: Phone, label: 'Direct Line', value: '+41 22 555 0199' },
                 { icon: Mail, label: 'Investment Inquiries', value: 'invest@helpis.ev' },
               ].map((item, i) => (
