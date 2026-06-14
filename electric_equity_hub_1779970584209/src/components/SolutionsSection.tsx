@@ -12,7 +12,7 @@ const solutions = [
   {
     title: 'Premium Distribution',
     subtitle: 'Hardware Sales',
-    image: 'https://storage.googleapis.com/dala-prod-public-storage/generated-images/b9788d6e-d9ef-4a95-80ed-c43bbaa12c96/charger-residential-luxury-26176968-1779969021945.webp',
+image: '/charger.jpg.Png',
     features: ['Luxury AC/DC Chargers', 'Smart Load Management', 'Custom Branding Options', 'White-glove Delivery'],
   },
 ];
