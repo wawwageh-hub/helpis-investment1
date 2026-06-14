@@ -12,7 +12,7 @@ const solutions = [
   {
     title: 'Premium Distribution',
     subtitle: 'Hardware Sales',
-image: '/charger.jpg.Png',
+image: '/charger.jpg.png',
     features: ['Luxury AC/DC Chargers', 'Smart Load Management', 'Custom Branding Options', 'White-glove Delivery'],
   },
 ];
