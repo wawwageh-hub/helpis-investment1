@@ -39,7 +39,7 @@ export const Hero = () => {
 
 
 
-            <Button size="lg" variant="outline" className="h-14 px-10 text-base font-semibold tracking-wide border-white/10 hover:bg-white/5 backdrop-blur-sm">
+
               Our Infrastructure
 
           </div>
