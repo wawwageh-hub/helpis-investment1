@@ -67,9 +67,6 @@ export const SolutionsSection = () => {
                   ))}
                 </div>
                 <div className="pt-4">
-                  <button className="text-foreground font-bold tracking-widest uppercase text-xs flex items-center gap-2 border-b-2 border-primary pb-1 hover:text-primary transition-colors">
-                    Learn More Details
-                  </button>
                 </div>
               </motion.div>
             </div>
