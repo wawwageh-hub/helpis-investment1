@@ -26,11 +26,7 @@ export const Footer = () => {
           </div>
 
                     <div>
-            <h4 className="text-xs font-bold uppercase tracking-[0.3em] mb-6">Legal</h4>
-            <ul className="space-y-4 text-sm text-muted-foreground">
-              <li><a href="#" className="hover:text-primary transition-colors">Privacy Policy</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Terms of Service</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Investor Relations</a></li>
+
             </ul>
           </div>
         </div>
