@@ -36,7 +36,8 @@ export const Navbar = () => {
               {item}
             </a>
           ))}
-        </div>
+<a href="/shop" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors tracking-widest uppercase">Shop</a>
+</div>
 
         <button
           className="md:hidden text-foreground"
