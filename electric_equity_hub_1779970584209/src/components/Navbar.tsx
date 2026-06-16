@@ -54,7 +54,7 @@ export const Navbar = () => {
             exit={{ opacity: 0, y: -20 }}
             className="absolute top-full left-0 right-0 bg-background border-b border-white/5 p-6 md:hidden flex flex-col gap-6"
           >
-            {['Vision', 'Investment', 'Solutions', 'Contact'].map((item) => (
+            {['Vision', 'Investment', 'Solutions', 'Contact', 'Shop'].map((item) => (
               <a
                 key={item}
                 href={`#${item.toLowerCase()}`}
