@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import emailjs from '@emailjs/browser';
-
 const products = [
   {
     id: 1,
@@ -17,9 +16,7 @@ const products = [
     features: ['Power: 7kW AC', 'Phase: 1-phase', 'Control: Bluetooth app', 'Build: Stainless steel', 'Warranty: 3 years'],
   },
 ];
-
 type Product = typeof products[0];
-
 interface FormData {
   from_name: string;
   phone: string;
@@ -27,7 +24,6 @@ interface FormData {
   city: string;
   address: string;
 }
-
 export const ShopSection = () => {
   const [cart, setCart] = useState<Product[]>([]);
   const [showCheckout, setShowCheckout] = useState(false);
