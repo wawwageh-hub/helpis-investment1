@@ -25,15 +25,6 @@ export const Footer = () => {
             </ul>
           </div>
 
-          <div>
-            <h4 className="text-xs font-bold uppercase tracking-[0.3em] mb-6">Legal</h4>
-            <ul className="space-y-4 text-sm text-muted-foreground">
-              <li><a href="#" className="hover:text-primary transition-colors">Privacy Policy</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Terms of Service</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Investor Relations</a></li>
-            </ul>
-          </div>
-        </div>
 
         <div className="flex flex-col md:flex-row justify-between items-center gap-8 pt-12 border-t border-white/5">
           <p className="text-xs text-muted-foreground tracking-widest">
