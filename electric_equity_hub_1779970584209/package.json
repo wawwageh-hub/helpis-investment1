@@ -15,6 +15,7 @@
   },
   "packageManager": "bun@1.2.22",
   "dependencies": {
+    "@emailjs/browser": "^4.3.3",
     "react-router-dom": "^6.26.0",
     "@dnd-kit/core": "^6.3.1",
     "@dnd-kit/sortable": "^10.0.0",
