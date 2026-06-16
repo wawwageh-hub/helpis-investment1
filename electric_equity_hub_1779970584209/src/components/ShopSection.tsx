@@ -29,7 +29,7 @@ interface FormData {
 }
 
 export const ShopSection = () => {
-  const [cart, setCart] = useState<Product | null>(null);
+const [cart, setCart] = useState<Product[]>([]);
   const [showCheckout, setShowCheckout] = useState(false);
   const [form, setForm] = useState<FormData>({ from_name: '', phone: '', governorate: '', city: '', address: '' });
   const [sent, setSent] = useState(false);
