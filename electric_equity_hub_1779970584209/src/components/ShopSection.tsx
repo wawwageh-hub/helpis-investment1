@@ -1,6 +1,4 @@
-تمام! دلوقتي روح GitHub → `src/components` واضغط **Add file → Create new file** وسميه `ShopSection.tsx` واكتب الكود ده جوا:
-
-```tsx
+tsx
 import React from 'react';
 
 const products = [
