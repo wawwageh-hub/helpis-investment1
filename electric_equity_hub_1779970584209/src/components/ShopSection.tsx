@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import emailjs from '@emailjs/browser';
 
 const products = [
   {
@@ -18,25 +19,47 @@ const products = [
 ];
 
 export const ShopSection = () => {
-  const [cart, setCart] = useState<typeof products>([]);
-  const [showCart, setShowCart] = useState(false);
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [address, setAddress] = useState('');
+  const [cart, setCart] = useState<typeof products[0] | null>(null);
+  const [showCheckout, setShowCheckout] = useState(false);
+  const [form, setForm] = useState({ from_name: '', phone: '', governorate: '', city: '', address: '' });
+  const [sent, setSent] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const addToCart = (product: typeof products[0]) => {
-    setCart([...cart, product]);
+    setCart(product);
+    setShowCheckout(true);
   };
 
-  const sendOrder = () => {
-    if (!name || !phone || !address) {
-      alert('من فضلك املأ كل البيانات');
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const sendOrder = async () => {
+    if (!form.from_name || !form.phone || !form.governorate || !form.city || !form.address) {
+      alert('Please fill in all fields');
       return;
     }
-    const items = cart.map(p => p.name).join('\n');
-    const message = `طلب جديد من موقع Helpis:\n\nالاسم: ${name}\nالهاتف: ${phone}\nالعنوان: ${address}\n\nالمنتجات:\n${items}`;
-    const url = `https://wa.me/201202375740?text=${encodeURIComponent(message)}`;
-    window.open(url, '_blank');
+    setLoading(true);
+    try {
+      await emailjs.send(
+        'service_dofj8zm',
+        'template_zd2e4gn',
+        {
+          from_name: form.from_name,
+          phone: form.phone,
+          governorate: form.governorate,
+          city: form.city,
+          address: form.address,
+          product: cart?.name,
+          price: cart?.price,
+        },
+        'BF-13QkE62Bm0oidq'
+      );
+      setSent(true);
+    } catch (err) {
+      alert('Something went wrong. Please try again.');
+    }
+    setLoading(false);
   };
 
   return (
@@ -47,66 +70,38 @@ export const ShopSection = () => {
           <h2 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">Shop EV Chargers</h2>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-12 mb-16">
-          {products.map((product) => (
-            <div key={product.id} className="bg-card rounded-3xl overflow-hidden border border-white/10">
-              <img src={product.image} alt={product.name} className="w-full aspect-video object-cover" />
-              <div className="p-8">
-                <h3 className="text-2xl font-bold mb-2">{product.name}</h3>
-                <p className="text-primary text-xl font-bold mb-6">{product.price}</p>
-                <ul className="space-y-2 mb-8">
-                  {product.features.map((f, idx) => (
-                    <li key={idx} className="text-muted-foreground text-sm">{f}</li>
-                  ))}
-                </ul>
-                <button
-                  onClick={() => { addToCart(product); setShowCart(true); }}
-                  className="w-full bg-primary text-black py-3 rounded-xl font-bold uppercase tracking-widest text-sm hover:opacity-90 transition"
-                >
-                  Add to Cart
-                </button>
+        {!showCheckout ? (
+          <div className="grid md:grid-cols-2 gap-12">
+            {products.map((product) => (
+              <div key={product.id} className="bg-card rounded-3xl overflow-hidden border border-white/10">
+                <img src={product.image} alt={product.name} className="w-full aspect-video object-cover" />
+                <div className="p-8">
+                  <h3 className="text-2xl font-bold mb-2">{product.name}</h3>
+                  <p className="text-primary text-xl font-bold mb-6">{product.price}</p>
+                  <ul className="space-y-2 mb-8">
+                    {product.features.map((f, idx) => (
+                      <li key={idx} className="text-muted-foreground text-sm">{f}</li>
+                    ))}
+                  </ul>
+                  <button
+                    onClick={() => addToCart(product)}
+                    className="w-full bg-primary text-black py-3 rounded-xl font-bold uppercase tracking-widest text-sm hover:opacity-90 transition"
+                  >
+                    Add to Cart
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-
-        {showCart && cart.length > 0 && (
-          <div className="bg-card rounded-3xl border border-white/10 p-8 max-w-lg mx-auto">
-            <h3 className="text-2xl font-bold mb-6">Cart</h3>
-            <ul className="mb-6 space-y-2">
-              {cart.map((item, i) => (
-                <li key={i} className="text-muted-foreground text-sm">{item.name} — {item.price}</li>
-              ))}
-            </ul>
-            <div className="space-y-4">
-              <input
-                className="w-full bg-background border border-white/10 rounded-xl px-4 py-3 text-sm"
-                placeholder="اسمك"
-                value={name}
-                onChange={e => setName(e.target.value)}
-              />
-              <input
-                className="w-full bg-background border border-white/10 rounded-xl px-4 py-3 text-sm"
-                placeholder="رقم هاتفك"
-                value={phone}
-                onChange={e => setPhone(e.target.value)}
-              />
-              <input
-                className="w-full bg-background border border-white/10 rounded-xl px-4 py-3 text-sm"
-                placeholder="عنوانك"
-                value={address}
-                onChange={e => setAddress(e.target.value)}
-              />
-              <button
-                onClick={sendOrder}
-                className="w-full bg-green-500 text-white py-3 rounded-xl font-bold uppercase tracking-widest text-sm hover:opacity-90 transition"
-              >
-                إرسال الطلب على واتساب
-              </button>
-            </div>
+            ))}
           </div>
-        )}
-      </div>
-    </section>
-  );
-};
+        ) : sent ? (
+          <div className="text-center py-20">
+            <h3 className="text-3xl font-bold mb-4 text-primary">Order Placed Successfully!</h3>
+            <p className="text-muted-foreground mb-8">We will contact you shortly.</p>
+            <button onClick={() => { setSent(false); setShowCheckout(false); setForm({ from_name: '', phone: '', governorate: '', city: '', address: '' }); }}
+              className="bg-primary text-black px-8 py-3 rounded-xl font-bold uppercase tracking-widest text-sm">
+              Back to Shop
+            </button>
+          </div>
+        ) : (
+          <div className="max-w-2xl mx-auto">
+            <button onClick={() => setShowCheckout(false)} className="text-muted-foreground mb-8 flex items-center gap-2
