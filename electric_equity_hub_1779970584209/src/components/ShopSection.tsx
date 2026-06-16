@@ -46,6 +46,3 @@ export const ShopSection = () => {
     </section>
   );
 };
-```
-
-اضغط **Commit changes** وبعدين نضيفه في `App.tsx` 🙂
