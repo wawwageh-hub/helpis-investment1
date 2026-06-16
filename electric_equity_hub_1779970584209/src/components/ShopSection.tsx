@@ -18,14 +18,24 @@ const products = [
   },
 ];
 
+type Product = typeof products[0];
+
+interface FormData {
+  from_name: string;
+  phone: string;
+  governorate: string;
+  city: string;
+  address: string;
+}
+
 export const ShopSection = () => {
-  const [cart, setCart] = useState<typeof products[0] | null>(null);
+  const [cart, setCart] = useState<Product | null>(null);
   const [showCheckout, setShowCheckout] = useState(false);
-  const [form, setForm] = useState({ from_name: '', phone: '', governorate: '', city: '', address: '' });
+  const [form, setForm] = useState<FormData>({ from_name: '', phone: '', governorate: '', city: '', address: '' });
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const addToCart = (product: typeof products[0]) => {
+  const addToCart = (product: Product) => {
     setCart(product);
     setShowCheckout(true);
   };
@@ -62,6 +72,55 @@ export const ShopSection = () => {
     setLoading(false);
   };
 
+  if (sent) {
+    return (
+      <section id="shop" className="py-24">
+        <div className="container mx-auto px-6 text-center py-20">
+          <h3 className="text-3xl font-bold mb-4 text-primary">Order Placed Successfully!</h3>
+          <p className="text-muted-foreground mb-8">We will contact you shortly.</p>
+          <button
+            onClick={() => { setSent(false); setShowCheckout(false); setCart(null); setForm({ from_name: '', phone: '', governorate: '', city: '', address: '' }); }}
+            className="bg-primary text-black px-8 py-3 rounded-xl font-bold uppercase tracking-widest text-sm"
+          >
+            Back to Shop
+          </button>
+        </div>
+      </section>
+    );
+  }
+
+  if (showCheckout && cart) {
+    return (
+      <section id="shop" className="py-24">
+        <div className="container mx-auto px-6 max-w-2xl">
+          <button onClick={() => setShowCheckout(false)} className="text-muted-foreground mb-8 flex items-center gap-2 hover:text-primary transition">
+            ← Back to Shop
+          </button>
+          <div className="bg-card rounded-3xl border border-white/10 p-8 mb-6">
+            <h3 className="text-xl font-bold mb-4">Order Summary</h3>
+            <div className="flex justify-between items-center">
+              <span className="text-muted-foreground">{cart.name}</span>
+              <span className="text-primary font-bold">{cart.price}</span>
+            </div>
+          </div>
+          <div className="bg-card rounded-3xl border border-white/10 p-8">
+            <h3 className="text-xl font-bold mb-6">Shipping Information</h3>
+            <div className="space-y-4">
+              <input name="from_name" placeholder="Full Name" value={form.from_name} onChange={handleChange} className="w-full bg-background border border-white/10 rounded-xl px-4 py-3 text-sm" />
+              <input name="phone" placeholder="Phone Number" value={form.phone} onChange={handleChange} className="w-full bg-background border border-white/10 rounded-xl px-4 py-3 text-sm" />
+              <input name="governorate" placeholder="Governorate" value={form.governorate} onChange={handleChange} className="w-full bg-background border border-white/10 rounded-xl px-4 py-3 text-sm" />
+              <input name="city" placeholder="City" value={form.city} onChange={handleChange} className="w-full bg-background border border-white/10 rounded-xl px-4 py-3 text-sm" />
+              <input name="address" placeholder="Street Address" value={form.address} onChange={handleChange} className="w-full bg-background border border-white/10 rounded-xl px-4 py-3 text-sm" />
+              <button onClick={sendOrder} disabled={loading} className="w-full bg-primary text-black py-3 rounded-xl font-bold uppercase tracking-widest text-sm hover:opacity-90 transition">
+                {loading ? 'Sending...' : 'Place Order'}
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section id="shop" className="py-24">
       <div className="container mx-auto px-6">
@@ -69,39 +128,26 @@ export const ShopSection = () => {
           <span className="text-primary text-sm font-semibold tracking-widest uppercase mb-4 block">Our Products</span>
           <h2 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">Shop EV Chargers</h2>
         </div>
-
-        {!showCheckout ? (
-          <div className="grid md:grid-cols-2 gap-12">
-            {products.map((product) => (
-              <div key={product.id} className="bg-card rounded-3xl overflow-hidden border border-white/10">
-                <img src={product.image} alt={product.name} className="w-full aspect-video object-cover" />
-                <div className="p-8">
-                  <h3 className="text-2xl font-bold mb-2">{product.name}</h3>
-                  <p className="text-primary text-xl font-bold mb-6">{product.price}</p>
-                  <ul className="space-y-2 mb-8">
-                    {product.features.map((f, idx) => (
-                      <li key={idx} className="text-muted-foreground text-sm">{f}</li>
-                    ))}
-                  </ul>
-                  <button
-                    onClick={() => addToCart(product)}
-                    className="w-full bg-primary text-black py-3 rounded-xl font-bold uppercase tracking-widest text-sm hover:opacity-90 transition"
-                  >
-                    Add to Cart
-                  </button>
-                </div>
+        <div className="grid md:grid-cols-2 gap-12">
+          {products.map((product) => (
+            <div key={product.id} className="bg-card rounded-3xl overflow-hidden border border-white/10">
+              <img src={product.image} alt={product.name} className="w-full aspect-video object-cover" />
+              <div className="p-8">
+                <h3 className="text-2xl font-bold mb-2">{product.name}</h3>
+                <p className="text-primary text-xl font-bold mb-6">{product.price}</p>
+                <ul className="space-y-2 mb-8">
+                  {product.features.map((f, idx) => (
+                    <li key={idx} className="text-muted-foreground text-sm">{f}</li>
+                  ))}
+                </ul>
+                <button onClick={() => addToCart(product)} className="w-full bg-primary text-black py-3 rounded-xl font-bold uppercase tracking-widest text-sm hover:opacity-90 transition">
+                  Add to Cart
+                </button>
               </div>
-            ))}
-          </div>
-        ) : sent ? (
-          <div className="text-center py-20">
-            <h3 className="text-3xl font-bold mb-4 text-primary">Order Placed Successfully!</h3>
-            <p className="text-muted-foreground mb-8">We will contact you shortly.</p>
-            <button onClick={() => { setSent(false); setShowCheckout(false); setForm({ from_name: '', phone: '', governorate: '', city: '', address: '' }); }}
-              className="bg-primary text-black px-8 py-3 rounded-xl font-bold uppercase tracking-widest text-sm">
-              Back to Shop
-            </button>
-          </div>
-        ) : (
-          <div className="max-w-2xl mx-auto">
-            <button onClick={() => setShowCheckout(false)} className="text-muted-foreground mb-8 flex items-center gap-2
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
