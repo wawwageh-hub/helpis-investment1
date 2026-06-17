@@ -34,7 +34,7 @@ export const Footer = () => {
             © {new Date().getFullYear()} HELPIS EV INFRASTRUCTURE. ALL RIGHTS RESERVED.
           </p>
           <div className="flex items-center gap-6">
-            {[Twitter, Linkedin, Instagram, Facebook].map((Icon, i) => (
+            {[Twitter, Linkedin, Instagram].map((Icon, i) => (
               <a key={i} href="#" className="text-muted-foreground hover:text-primary transition-colors">
                 <Icon className="w-5 h-5" />
               </a>
