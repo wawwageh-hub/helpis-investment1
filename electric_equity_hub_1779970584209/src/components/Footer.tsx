@@ -23,7 +23,7 @@ export const Footer = () => {
             </ul>
           </div>
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-[0.3em] mb-6">Shop</h4>
+            <h4 className="text-xs font-bold uppercase tracking-[0.3em] mb-1">Shop</h4>
             <ul className="space-y-4 text-sm text-muted-foreground">
               <li><a href="/shop" className="hover:text-primary transition-colors">EV Chargers</a></li>
             </ul>
