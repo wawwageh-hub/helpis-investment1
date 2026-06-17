@@ -4,7 +4,7 @@ export const Footer = () => {
   return (
     <footer className="py-20 border-t border-white/5">
       <div className="container mx-auto px-6">
-        <div className="grid md:grid-cols-3 gap-12 mb-20">
+<div className="grid md:grid-cols-3 gap-12 mb-20 items-start">
           <div>
             <div className="flex items-center gap-2 mb-6">
               <img src="/logo.jpg.jpeg" className="h-14 w-auto rounded-xl border-4 border-yellow-400 p-1" alt="Helpis Logo" />
