@@ -35,8 +35,9 @@ export const ShopSection = () => {
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const addToCart = (product: Product) => {
+const addToCart = (product: Product) => {
     setCart([...cart, product]);
+    setShowCheckout(true);
   };
 
   const removeFromCart = (index: number) => {
