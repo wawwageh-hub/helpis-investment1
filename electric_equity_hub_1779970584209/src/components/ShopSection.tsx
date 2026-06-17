@@ -108,6 +108,11 @@ const addToCart = (product: Product) => {
                 </div>
               </div>
             ))}
+</div>
+          <div className="bg-card rounded-3xl border border-white/10 p-8 mb-6">
+            <button onClick={() => setShowCheckout(false)} className="w-full border border-white/10 text-muted-foreground py-3 rounded-xl font-bold uppercase tracking-widest text-sm hover:text-primary hover:border-primary transition">
+              + Add More Products
+            </button>
           </div>
           <div className="bg-card rounded-3xl border border-white/10 p-8">
             <h3 className="text-xl font-bold mb-6">Shipping Information</h3>
