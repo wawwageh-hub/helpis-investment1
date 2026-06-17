@@ -1,20 +1,18 @@
 import React from 'react';
-import { Zap, Github, Twitter, Linkedin, Instagram } from 'lucide-react';
-
+import { Twitter, Linkedin, Instagram } from 'lucide-react';
 export const Footer = () => {
   return (
     <footer className="py-20 border-t border-white/5">
       <div className="container mx-auto px-6">
-        <div className="grid md:grid-cols-4 gap-12 mb-20">
-          <div className="col-span-2">
+        <div className="grid md:grid-cols-3 gap-12 mb-20">
+          <div>
             <div className="flex items-center gap-2 mb-6">
-<img src="/logo.jpg.jpeg" className="h-14 w-auto rounded-xl border-4 border-yellow-400 p-1" alt="Helpis Logo" />
+              <img src="/logo.jpg.jpeg" className="h-14 w-auto rounded-xl border-4 border-yellow-400 p-1" alt="Helpis Logo" />
             </div>
             <p className="text-muted-foreground max-w-sm font-light leading-relaxed">
               Pioneering the next generation of electric vehicle infrastructure. We combine luxury design with sustainable technology to create investment-grade charging solutions.
             </p>
           </div>
-
           <div>
             <h4 className="text-xs font-bold uppercase tracking-[0.3em] mb-6">Company</h4>
             <ul className="space-y-4 text-sm text-muted-foreground">
@@ -24,18 +22,13 @@ export const Footer = () => {
               <li><a href="#contact" className="hover:text-primary transition-colors">Contact</a></li>
             </ul>
           </div>
-
-                    <div>
-            <h4 className="text-xs font-bold uppercase tracking-[0.3em] mb-6">Legal</h4>
+          <div>
+            <h4 className="text-xs font-bold uppercase tracking-[0.3em] mb-6">Shop</h4>
             <ul className="space-y-4 text-sm text-muted-foreground">
-              <li><a href="#" className="hover:text-primary transition-colors">Privacy Policy</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Terms of Service</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Investor Relations</a></li>
+              <li><a href="/shop" className="hover:text-primary transition-colors">EV Chargers</a></li>
             </ul>
           </div>
         </div>
-
-
         <div className="flex flex-col md:flex-row justify-between items-center gap-8 pt-12 border-t border-white/5">
           <p className="text-xs text-muted-foreground tracking-widest">
             © {new Date().getFullYear()} HELPIS EV INFRASTRUCTURE. ALL RIGHTS RESERVED.
