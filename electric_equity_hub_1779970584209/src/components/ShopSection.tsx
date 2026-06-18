@@ -73,17 +73,27 @@ export const ShopSection = () => {
     } catch (err) {
       alert('Something went wrong. Please try again.');
     }
-    loading && setLoading(false);
+    setLoading(false);
+  };
+
+  // دالة مشتركة للرجوع للمتجر وإلغاء شاشة الدفع فوراً
+  const handleBackToShop = () => {
+    setSent(false);
+    setShowCheckout(false);
+    // ده بيجبر الصفحة تتحرك (Scroll) تلقائياً لقسم الشوب عشان يظهر قدام المستخدم
+    setTimeout(() => {
+      document.getElementById('shop')?.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
   };
 
   if (sent) {
     return (
       <section id="shop" className="py-24">
         <div className="container mx-auto px-6 text-center py-20">
-          <h3 className="text-3xl font-bold mb-4 text-primary">Order Placed Successfully!</h3>
+          <h3 className="text-3xl font-bold mb-4 text-[#d4af37]">Order Placed Successfully!</h3>
           <p className="text-muted-foreground mb-8">We will contact you shortly.</p>
           <button 
-            onClick={() => { setSent(false); setShowCheckout(false); setCart([]); setForm({ from_name: '', phone: '', governorate: '', city: '', address: '' }); }} 
+            onClick={() => { handleBackToShop(); setCart([]); setForm({ from_name: '', phone: '', governorate: '', city: '', address: '' }); }} 
             className="bg-[#d4af37] hover:bg-[#c5a028] text-white px-8 py-3 rounded-full font-bold uppercase tracking-widest text-sm border-none shadow-lg transition-all"
           >
             Back to Shop
@@ -98,7 +108,7 @@ export const ShopSection = () => {
       <section id="shop" className="py-24">
         <div className="container mx-auto px-6 max-w-2xl">
           <button 
-            onClick={() => setShowCheckout(false)} 
+            onClick={handleBackToShop} 
             className="text-muted-foreground mb-8 flex items-center gap-2 hover:text-white transition font-medium"
           >
             ← Back to Shop
@@ -116,7 +126,7 @@ export const ShopSection = () => {
             ))}
           </div>
           <div className="bg-card rounded-3xl border border-white/10 p-8 mb-6">
-            <button onClick={() => setShowCheckout(false)} className="w-full border-2 border-[#d4af37] text-[#d4af37] py-3 rounded-xl font-bold uppercase tracking-widest text-sm hover:bg-[#d4af37] hover:text-white transition">
+            <button onClick={handleBackToShop} className="w-full border-2 border-[#d4af37] text-[#d4af37] py-3 rounded-xl font-bold uppercase tracking-widest text-sm hover:bg-[#d4af37] hover:text-white transition">
               + Add More Products
             </button>
           </div>
