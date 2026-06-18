@@ -37,8 +37,8 @@ export const Navbar = () => {
               {item}
             </a>
           ))}
-          {/* زر Shop بالتصميم الذهبي الجديد والكتابة البيضاء */}
-          <a href="/shop">
+          {/* تم تعديل التوجيه هنا إلى #shop ليعمل الـ Scroll بسلاسة */}
+          <a href="#shop">
             <Button className="bg-[#d4af37] hover:bg-[#c5a028] text-white font-bold rounded-full px-8 tracking-widest uppercase border-none shadow-lg">
               Shop
             </Button>
@@ -74,9 +74,9 @@ export const Navbar = () => {
               </a>
             ))}
             
-            {/* زر Shop في الموبايل بنفس التصميم الذهبي */}
+            {/* تم تعديل التوجيه هنا أيضاً إلى #shop لقفل المنيو والذهاب للمتجر فوراً */}
             <a 
-              href="/shop" 
+              href="#shop" 
               onClick={() => setIsMobileMenuOpen(false)}
               className="w-full"
             >
