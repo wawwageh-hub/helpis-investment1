@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import emailjs from '@emailjs/browser';
 
 const products = [
@@ -38,7 +38,6 @@ export const ShopSection = () => {
   const addToCart = (product: Product) => {
     setCart([...cart, product]);
     setShowCheckout(true);
-    // نقل المستخدم لأول الصفحة بسلاسة عند الدخول للدفع
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -78,13 +77,11 @@ export const ShopSection = () => {
     setLoading(false);
   };
 
-  // دالة الرجوع للمتجر وتحديث الرابط والـ Scroll
+  // الحل الأكيد: قفل كل الشاشات والـ states وإجبار الصفحة ترجع لعرض المنتجات
   const handleBackToShop = () => {
-    setSent(false);
     setShowCheckout(false);
-    // تحديث الرابط في المتصفح ليعود لشكل /shop الطبيعي
+    setSent(false);
     window.history.pushState({}, '', '/shop');
-    // عمل Scroll ناعم لأعلى الصفحة لرؤية المنتجات من جديد
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -110,8 +107,9 @@ export const ShopSection = () => {
       <section id="shop" className="py-24">
         <div className="container mx-auto px-6 max-w-2xl">
           <button 
+            type="button"
             onClick={handleBackToShop} 
-            className="text-muted-foreground mb-8 flex items-center gap-2 hover:text-white transition font-medium"
+            className="text-muted-foreground mb-8 flex items-center gap-2 hover:text-white transition font-medium cursor-pointer"
           >
             ← Back to Shop
           </button>
@@ -128,7 +126,7 @@ export const ShopSection = () => {
             ))}
           </div>
           <div className="bg-card rounded-3xl border border-white/10 p-8 mb-6">
-            <button onClick={handleBackToShop} className="w-full border-2 border-[#d4af37] text-[#d4af37] py-3 rounded-xl font-bold uppercase tracking-widest text-sm hover:bg-[#d4af37] hover:text-white transition">
+            <button type="button" onClick={handleBackToShop} className="w-full border-2 border-[#d4af37] text-[#d4af37] py-3 rounded-xl font-bold uppercase tracking-widest text-sm hover:bg-[#d4af37] hover:text-white transition cursor-pointer">
               + Add More Products
             </button>
           </div>
@@ -137,53 +135,4 @@ export const ShopSection = () => {
             <div className="space-y-4">
               <input name="from_name" placeholder="Full Name" value={form.from_name} onChange={handleChange} className="w-full bg-background border border-white/10 rounded-xl px-4 py-3 text-sm" />
               <input name="phone" placeholder="Phone Number" value={form.phone} onChange={handleChange} className="w-full bg-background border border-white/10 rounded-xl px-4 py-3 text-sm" />
-              <input name="governorate" placeholder="Governorate" value={form.governorate} onChange={handleChange} className="w-full bg-background border border-white/10 rounded-xl px-4 py-3 text-sm" />
-              <input name="city" placeholder="City" value={form.city} onChange={handleChange} className="w-full bg-background border border-white/10 rounded-xl px-4 py-3 text-sm" />
-              <input name="address" placeholder="Street Address" value={form.address} onChange={handleChange} className="w-full bg-background border border-white/10 rounded-xl px-4 py-3 text-sm" />
-              <button onClick={sendOrder} disabled={loading} className="w-full bg-[#d4af37] hover:bg-[#c5a028] text-white py-3 rounded-full font-bold uppercase tracking-widest text-sm border-none shadow-lg transition-all">
-                {loading ? 'Sending...' : 'Place Order'}
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-    );
-  }
-
-  return (
-    <section id="shop" className="py-24">
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
-          <span className="text-[#d4af37] text-sm font-semibold tracking-widest uppercase mb-4 block">Our Products</span>
-          <h2 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">Shop EV Chargers</h2>
-        </div>
-        {cart.length > 0 && (
-          <div className="flex justify-end mb-8">
-            <button onClick={() => setShowCheckout(true)} className="bg-[#d4af37] hover:bg-[#c5a028] text-white px-6 py-3 rounded-full font-bold uppercase tracking-widest text-sm border-none shadow-lg transition-all">
-              Checkout ({cart.length})
-            </button>
-          </div>
-        )}
-        <div className="grid md:grid-cols-2 gap-12">
-          {products.map((product) => (
-            <div key={product.id} className="bg-card rounded-3xl overflow-hidden border border-white/10">
-              <img src={product.image} alt={product.name} className="w-full aspect-video object-cover" />
-              <div className="p-8">
-                <h3 className="text-2xl font-bold mb-2">{product.name}</h3>
-                <p className="text-[#d4af37] text-xl font-bold mb-6">{product.price}</p>
-                <ul className="space-y-2 mb-8">
-                  {product.features.map((f, idx) => (
-                    <li key={idx} className="text-muted-foreground text-sm">{f}</li>
-                  ))}
-                </ul>
-                <button onClick={() => addToCart(product)} className="w-full bg-[#d4af37] hover:bg-[#c5a028] text-white py-3 rounded-full font-bold uppercase tracking-widest text-sm border-none shadow-lg transition-all">
-                  Add to Cart
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
+              <input name="governorate" placeholder="Governorate" value={form.governorate} onChange={handleChange} className="w-full bg-background border border-white/10 rounded-xl px
