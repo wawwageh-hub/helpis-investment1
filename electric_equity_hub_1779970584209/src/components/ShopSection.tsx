@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import emailjs from '@emailjs/browser';
 
 const products = [
@@ -38,6 +38,8 @@ export const ShopSection = () => {
   const addToCart = (product: Product) => {
     setCart([...cart, product]);
     setShowCheckout(true);
+    // نقل المستخدم لأول الصفحة بسلاسة عند الدخول للدفع
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const removeFromCart = (index: number) => {
@@ -76,14 +78,14 @@ export const ShopSection = () => {
     setLoading(false);
   };
 
-  // دالة مشتركة للرجوع للمتجر وإلغاء شاشة الدفع فوراً
+  // دالة الرجوع للمتجر وتحديث الرابط والـ Scroll
   const handleBackToShop = () => {
     setSent(false);
     setShowCheckout(false);
-    // ده بيجبر الصفحة تتحرك (Scroll) تلقائياً لقسم الشوب عشان يظهر قدام المستخدم
-    setTimeout(() => {
-      document.getElementById('shop')?.scrollIntoView({ behavior: 'smooth' });
-    }, 100);
+    // تحديث الرابط في المتصفح ليعود لشكل /shop الطبيعي
+    window.history.pushState({}, '', '/shop');
+    // عمل Scroll ناعم لأعلى الصفحة لرؤية المنتجات من جديد
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   if (sent) {
