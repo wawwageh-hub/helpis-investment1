@@ -5,17 +5,17 @@ export const Footer = () => {
     <footer className="border-t border-white/5 bg-background py-12 mt-20">
       <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between gap-10">
         
-        {/* الجزء الشمال: اللوجو والكلام اللي تحته */}
+        {/* الجزء الشمال: اللوجو بالحجم الكبير والكلام اللي تحته */}
         <div className="flex flex-col gap-4 max-w-sm">
           <div className="flex items-center gap-2">
-            <img src="/logo.jpg.jpeg" className="h-10 w-auto rounded-lg border-2 border-yellow-400 p-0.5" alt="Helpis Logo" />
+            <img src="/logo.jpg.jpeg" className="h-14 w-auto rounded-xl border-4 border-yellow-400 p-1" alt="Helpis Logo" />
           </div>
           <p className="text-sm text-muted-foreground leading-relaxed">
             Pioneering the next generation of electric vehicle infrastructure. We combine luxury design with sustainable technology to create investment-grade charging solutions.
           </p>
         </div>
 
-        {/* الجزء اليمين: القوائم جمب بعض بمسافة مريحة */}
+        {/* الجزء اليمين: القوائم جمب بعض */}
         <div className="flex flex-row gap-16 md:gap-32 justify-start items-start min-w-max">
           
           {/* قسم Company */}
@@ -37,7 +37,7 @@ export const Footer = () => {
 
       </div>
 
-      {/* حقوق النشر تحت خالص */}
+      {/* حقوق النشر */}
       <div className="container mx-auto px-6 mt-12 pt-6 border-t border-white/5 text-center md:text-left">
         <p className="text-xs text-muted-foreground">
           &copy; 2026 HELPIS EV INFRASTRUCTURE. ALL RIGHTS RESERVED.
