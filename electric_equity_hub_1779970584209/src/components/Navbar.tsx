@@ -37,9 +37,11 @@ export const Navbar = () => {
               {item}
             </a>
           ))}
-          {/* زر Shop فقط بالتصميم الأساسي بدلاً من Inquire Now */}
+          {/* زر Shop بالتصميم الذهبي الجديد والكتابة البيضاء */}
           <a href="/shop">
-            <Button variant="outline" className="border-primary/50 hover:bg-primary/10">Shop</Button>
+            <Button className="bg-[#d4af37] hover:bg-[#c5a028] text-white font-bold rounded-full px-8 tracking-widest uppercase border-none shadow-lg">
+              Shop
+            </Button>
           </a>
         </div>
 
@@ -72,12 +74,15 @@ export const Navbar = () => {
               </a>
             ))}
             
-            {/* زر Shop فقط في الموبايل ويقوم بإغلاق المنيو */}
+            {/* زر Shop في الموبايل بنفس التصميم الذهبي */}
             <a 
               href="/shop" 
               onClick={() => setIsMobileMenuOpen(false)}
+              className="w-full"
             >
-              <Button className="w-full">Shop</Button>
+              <Button className="w-full bg-[#d4af37] hover:bg-[#c5a028] text-white font-bold rounded-full py-6 tracking-widest uppercase border-none shadow-lg">
+                Shop
+              </Button>
             </a>
           </motion.div>
         )}
