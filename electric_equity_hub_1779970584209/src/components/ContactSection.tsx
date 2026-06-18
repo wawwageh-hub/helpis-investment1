@@ -31,24 +31,21 @@ export const ContactSection = () => {
 
     setLoading(true);
     try {
-      // الإرسال باستخدام نفس الحساب والـ Template بتوعك
+      // إرسال البيانات للتمبلت الجديد المخصص للاستفسارات
       await emailjs.send(
         'service_dofj8zm',
-        'template_zd2e4gn',
+        'template_23qo6e8', // التمبلت الجديد الخاص بك
         {
-          from_name: `${form.firstName} ${form.lastName}`, // دمج الاسم الأول والأخير
-          phone: 'Provided via Email', // لملء خانة الفون في التمبلت الخاص بك
-          governorate: form.email, // وضع الإيميل مكان المحافظة ليظهر عندك
-          city: 'Inquiry / Customer Support', // لتوضيح أن هذه رسالة استفسار وليست طلب شراء
-          address: form.details, // وضع تفاصيل الاستفسار في خانة العنوان لتصلك كاملة
-          product: 'General Inquiry Website',
-          price: '-',
+          firstName: form.firstName,
+          lastName: form.lastName,
+          email: form.email,
+          details: form.details,
         },
         'BF-13QkE62Bm0oidq'
       );
 
       alert('Your inquiry has been sent successfully!');
-      setForm({ firstName: '', lastName: '', email: '', details: '' }); // تصفير الحقول بعد الإرسال
+      setForm({ firstName: '', lastName: '', email: '', details: '' }); // تفريغ الحقول بعد النجاح
     } catch (err) {
       alert('Something went wrong. Please try again.');
     }
@@ -80,7 +77,7 @@ export const ContactSection = () => {
 
             <div className="flex items-center gap-4">
               <div className="p-3 bg-white/5 rounded-full border border-white/10 text-[#d4af37]">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.5 19.5 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
               </div>
               <div>
                 <span className="text-xs text-muted-foreground block uppercase tracking-wider">Direct Line</span>
@@ -100,7 +97,7 @@ export const ContactSection = () => {
           </div>
         </div>
 
-        {/* الجانب الأيمن: الفورم البرمجية المقفلة */}
+        {/* الجانب الأيمن: الفورم البرمجية */}
         <div className="bg-card rounded-3xl border border-white/10 p-8 w-full">
           <form onSubmit={handleSendInquiry} className="space-y-6">
             <div className="grid grid-cols-2 gap-4">
