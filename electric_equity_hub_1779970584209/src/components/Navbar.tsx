@@ -25,9 +25,11 @@ export const Navbar = () => {
         <div className="flex items-center gap-2">
           <img src="/logo.jpg.jpeg" className="h-14 w-auto rounded-xl border-4 border-yellow-400 p-1" alt="Helpis Logo" />
         </div>
+        
+        {/* القائمة في الشاشات الكبيرة */}
         <div className="hidden md:flex items-center gap-8">
           {['Vision', 'Investment', 'Solutions', 'Contact'].map((item) => (
-            
+            <a
               key={item}
               href={`#${item.toLowerCase()}`}
               className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors tracking-widest uppercase"
@@ -35,9 +37,14 @@ export const Navbar = () => {
               {item}
             </a>
           ))}
-          <a href="/shop" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors tracking-widest uppercase">Shop</a>
+          {/* زر Shop بتصميم يشبه Inquire Now */}
+          <a href="/shop">
+            <Button variant="outline" className="border-primary/50 hover:bg-primary/10">Shop</Button>
+          </a>
           <Button variant="outline" className="border-primary/50 hover:bg-primary/10">Inquire Now</Button>
         </div>
+
+        {/* زر الهامبرغر للموبايل */}
         <button
           className="md:hidden text-foreground"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -45,6 +52,8 @@ export const Navbar = () => {
           {isMobileMenuOpen ? <X /> : <Menu />}
         </button>
       </div>
+
+      {/* قائمة الموبايل */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
@@ -54,7 +63,7 @@ export const Navbar = () => {
             className="absolute top-full left-0 right-0 bg-background border-b border-white/5 p-6 md:hidden flex flex-col gap-6"
           >
             {['Vision', 'Investment', 'Solutions', 'Contact'].map((item) => (
-              
+              <a
                 key={item}
                 href={`#${item.toLowerCase()}`}
                 onClick={() => setIsMobileMenuOpen(false)}
@@ -64,13 +73,13 @@ export const Navbar = () => {
               </a>
             ))}
             
-              href="/shop"
+            {/* زر Shop في الموبايل يغلق القائمة ثم يوجه للصفحة */}
+            <a 
+              href="/shop" 
               onClick={() => setIsMobileMenuOpen(false)}
-              className="w-full text-center bg-primary text-black py-3 rounded-xl font-bold uppercase tracking-widest text-sm"
             >
-              Shop
+              <Button className="w-full">Shop</Button>
             </a>
-            <Button className="w-full" onClick={() => setIsMobileMenuOpen(false)}>Inquire Now</Button>
           </motion.div>
         )}
       </AnimatePresence>
