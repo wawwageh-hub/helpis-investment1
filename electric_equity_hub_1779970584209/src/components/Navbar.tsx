@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Zap } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export const Navbar = () => {
@@ -22,13 +22,12 @@ export const Navbar = () => {
       }`}
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
-<div className="flex items-center gap-2">
-<img src="/logo.jpg.jpeg" className="h-14 w-auto rounded-xl border-4 border-yellow-400 p-1" alt="Helpis Logo" />
+        <div className="flex items-center gap-2">
+          <img src="/logo.jpg.jpeg" className="h-14 w-auto rounded-xl border-4 border-yellow-400 p-1" alt="Helpis Logo" />
         </div>
-
         <div className="hidden md:flex items-center gap-8">
           {['Vision', 'Investment', 'Solutions', 'Contact'].map((item) => (
-            <a
+            
               key={item}
               href={`#${item.toLowerCase()}`}
               className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors tracking-widest uppercase"
@@ -36,9 +35,9 @@ export const Navbar = () => {
               {item}
             </a>
           ))}
-<a href="/shop" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors tracking-widest uppercase">Shop</a>
-</div>
-
+          <a href="/shop" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors tracking-widest uppercase">Shop</a>
+          <Button variant="outline" className="border-primary/50 hover:bg-primary/10">Inquire Now</Button>
+        </div>
         <button
           className="md:hidden text-foreground"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -46,7 +45,6 @@ export const Navbar = () => {
           {isMobileMenuOpen ? <X /> : <Menu />}
         </button>
       </div>
-
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
@@ -55,8 +53,8 @@ export const Navbar = () => {
             exit={{ opacity: 0, y: -20 }}
             className="absolute top-full left-0 right-0 bg-background border-b border-white/5 p-6 md:hidden flex flex-col gap-6"
           >
-            {['Vision', 'Investment', 'Solutions', 'Contact', 'Shop'].map((item) => (
-              <a
+            {['Vision', 'Investment', 'Solutions', 'Contact'].map((item) => (
+              
                 key={item}
                 href={`#${item.toLowerCase()}`}
                 onClick={() => setIsMobileMenuOpen(false)}
@@ -65,7 +63,14 @@ export const Navbar = () => {
                 {item}
               </a>
             ))}
-            <Button className="w-full">Inquire Now</Button>
+            
+              href="/shop"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="w-full text-center bg-primary text-black py-3 rounded-xl font-bold uppercase tracking-widest text-sm"
+            >
+              Shop
+            </a>
+            <Button className="w-full" onClick={() => setIsMobileMenuOpen(false)}>Inquire Now</Button>
           </motion.div>
         )}
       </AnimatePresence>
