@@ -26,7 +26,7 @@ export const Navbar = () => {
           <img src="/logo.jpg.jpeg" className="h-14 w-auto rounded-xl border-4 border-yellow-400 p-1" alt="Helpis Logo" />
         </div>
         
-        {/* القائمة في الشاشات الكبيرة */}
+        {/* القائمة في الشاشات الكبيرة (الكمبيوتر) */}
         <div className="hidden md:flex items-center gap-8">
           {['Vision', 'Investment', 'Solutions', 'Contact'].map((item) => (
             <a
@@ -37,11 +37,10 @@ export const Navbar = () => {
               {item}
             </a>
           ))}
-          {/* زر Shop بتصميم يشبه Inquire Now */}
+          {/* زر Shop فقط بالتصميم الأساسي بدلاً من Inquire Now */}
           <a href="/shop">
             <Button variant="outline" className="border-primary/50 hover:bg-primary/10">Shop</Button>
           </a>
-          <Button variant="outline" className="border-primary/50 hover:bg-primary/10">Inquire Now</Button>
         </div>
 
         {/* زر الهامبرغر للموبايل */}
@@ -73,7 +72,7 @@ export const Navbar = () => {
               </a>
             ))}
             
-            {/* زر Shop في الموبايل يغلق القائمة ثم يوجه للصفحة */}
+            {/* زر Shop فقط في الموبايل ويقوم بإغلاق المنيو */}
             <a 
               href="/shop" 
               onClick={() => setIsMobileMenuOpen(false)}
