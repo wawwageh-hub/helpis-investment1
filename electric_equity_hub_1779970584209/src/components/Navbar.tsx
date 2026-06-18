@@ -31,15 +31,15 @@ export const Navbar = () => {
           {['Vision', 'Investment', 'Solutions', 'Contact'].map((item) => (
             <a
               key={item}
-              href={`#${item.toLowerCase()}`}
+              href={`/#${item.toLowerCase()}`}
               className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors tracking-widest uppercase"
             >
               {item}
             </a>
           ))}
-          {/* تم تعديل التوجيه هنا إلى #shop ليعمل الـ Scroll بسلاسة */}
-          <a href="#shop">
-            <Button className="bg-[#d4af37] hover:bg-[#c5a028] text-white font-bold rounded-full px-8 tracking-widest uppercase border-none shadow-lg">
+          {/* زر Shop بالتصميم الذهبي الموحد الكامل */}
+          <a href="/shop">
+            <Button className="bg-[#d4af37] hover:bg-[#c5a028] text-white font-bold rounded-full px-8 tracking-widest uppercase border-none shadow-lg transition-all">
               Shop
             </Button>
           </a>
@@ -66,7 +66,7 @@ export const Navbar = () => {
             {['Vision', 'Investment', 'Solutions', 'Contact'].map((item) => (
               <a
                 key={item}
-                href={`#${item.toLowerCase()}`}
+                href={`/#${item.toLowerCase()}`}
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="text-lg font-medium tracking-widest uppercase"
               >
@@ -74,13 +74,13 @@ export const Navbar = () => {
               </a>
             ))}
             
-            {/* تم تعديل التوجيه هنا أيضاً إلى #shop لقفل المنيو والذهاب للمتجر فوراً */}
+            {/* زر Shop في الموبايل بالتصميم الذهبي الموحد */}
             <a 
-              href="#shop" 
+              href="/shop" 
               onClick={() => setIsMobileMenuOpen(false)}
               className="w-full"
             >
-              <Button className="w-full bg-[#d4af37] hover:bg-[#c5a028] text-white font-bold rounded-full py-6 tracking-widest uppercase border-none shadow-lg">
+              <Button className="w-full bg-[#d4af37] hover:bg-[#c5a028] text-white font-bold rounded-full py-6 tracking-widest uppercase border-none shadow-lg transition-all">
                 Shop
               </Button>
             </a>
