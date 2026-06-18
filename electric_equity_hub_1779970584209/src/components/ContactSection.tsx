@@ -1,89 +1,165 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
-import { Mail, MapPin, Phone } from 'lucide-react';
-import { toast } from 'sonner';
+import React, { useState } from 'react';
+import emailjs from '@emailjs/browser';
+
+interface InquiryFormData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  details: string;
+}
 
 export const ContactSection = () => {
-  const handleSubmit = (e: React.FormEvent) => {
+  const [form, setForm] = useState<InquiryFormData>({
+    firstName: '',
+    lastName: '',
+    email: '',
+    details: '',
+  });
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSendInquiry = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success('Inquiry received. A senior advisor will contact you within 24 hours.');
+
+    if (!form.firstName || !form.lastName || !form.email || !form.details) {
+      alert('Please fill in all fields');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      // الإرسال باستخدام نفس الحساب والـ Template بتوعك
+      await emailjs.send(
+        'service_dofj8zm',
+        'template_zd2e4gn',
+        {
+          from_name: `${form.firstName} ${form.lastName}`, // دمج الاسم الأول والأخير
+          phone: 'Provided via Email', // لملء خانة الفون في التمبلت الخاص بك
+          governorate: form.email, // وضع الإيميل مكان المحافظة ليظهر عندك
+          city: 'Inquiry / Customer Support', // لتوضيح أن هذه رسالة استفسار وليست طلب شراء
+          address: form.details, // وضع تفاصيل الاستفسار في خانة العنوان لتصلك كاملة
+          product: 'General Inquiry Website',
+          price: '-',
+        },
+        'BF-13QkE62Bm0oidq'
+      );
+
+      alert('Your inquiry has been sent successfully!');
+      setForm({ firstName: '', lastName: '', email: '', details: '' }); // تصفير الحقول بعد الإرسال
+    } catch (err) {
+      alert('Something went wrong. Please try again.');
+    }
+    setLoading(false);
   };
 
   return (
-    <section id="contact" className="py-24 bg-secondary/20">
-      <div className="container mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-16 items-start">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="space-y-12"
-          >
-            <div>
-              <span className="text-primary text-sm font-semibold tracking-widest uppercase mb-4 block">Get in Touch</span>
-              <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-6">Start Your <br />Energy Journey</h2>
-              <p className="text-muted-foreground max-w-md font-light leading-relaxed">
-                Whether you are an institutional investor or a developer, we are ready to discuss your vision for the charging future.
-              </p>
+    <section id="contact" className="py-24 bg-background text-white">
+      <div className="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-start">
+        
+        {/* الجانب الأيسر: معلومات الاتصال */}
+        <div>
+          <span className="text-[#d4af37] text-sm font-semibold tracking-widest uppercase mb-2 block">GET IN TOUCH</span>
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-6">Start Your<br />Energy Journey</h2>
+          <p className="text-muted-foreground mb-12 max-w-md">
+            Whether you are an institutional investor or a developer, we are ready to discuss your vision for the charging future.
+          </p>
+
+          <div className="space-y-6">
+            <div className="flex items-center gap-4">
+              <div className="p-3 bg-white/5 rounded-full border border-white/10 text-[#d4af37]">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div>
+                <span className="text-xs text-muted-foreground block uppercase tracking-wider">Headquarters</span>
+                <span className="font-medium">3 Homosani St Ibn sendr sq Cairo</span>
+              </div>
             </div>
 
-            <div className="space-y-6">
-              {[
-                { icon: MapPin, label: 'Headquarters', value: '3 Homosani St Ibn sendr sq Cairo' },
-                { icon: Phone, label: 'Direct Line', value: '+41 22 555 0199' },
-                { icon: Mail, label: 'Investment Inquiries', value: 'invest@helpis.ev' },
-              ].map((item, i) => (
-                <div key={i} className="flex items-center gap-6 group">
-                  <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center group-hover:border-primary transition-colors">
-                    <item.icon className="w-5 h-5 text-primary" />
-                  </div>
-                  <div>
-                    <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-1">{item.label}</p>
-                    <p className="font-semibold text-foreground tracking-tight">{item.value}</p>
-                  </div>
-                </div>
-              ))}
+            <div className="flex items-center gap-4">
+              <div className="p-3 bg-white/5 rounded-full border border-white/10 text-[#d4af37]">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              </div>
+              <div>
+                <span className="text-xs text-muted-foreground block uppercase tracking-wider">Direct Line</span>
+                <span className="font-medium">+41 22 555 0199</span>
+              </div>
             </div>
-          </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            className="glass-card p-10 rounded-3xl"
-          >
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <Label htmlFor="firstName" className="uppercase text-[10px] tracking-widest font-bold">First Name</Label>
-                  <Input id="firstName" placeholder="James" className="bg-white/5 border-white/10 focus:border-primary/50" required />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="lastName" className="uppercase text-[10px] tracking-widest font-bold">Last Name</Label>
-                  <Input id="lastName" placeholder="Sutherland" className="bg-white/5 border-white/10 focus:border-primary/50" required />
-                </div>
+            <div className="flex items-center gap-4">
+              <div className="p-3 bg-white/5 rounded-full border border-white/10 text-[#d4af37]">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
               </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="email" className="uppercase text-[10px] tracking-widest font-bold">Email Address</Label>
-                <Input id="email" type="email" placeholder="james@luxury-assets.com" className="bg-white/5 border-white/10 focus:border-primary/50" required />
+              <div>
+                <span className="text-xs text-muted-foreground block uppercase tracking-wider">Investment Inquiries</span>
+                <span className="font-medium text-[#d4af37]">invest@helpis.ev</span>
               </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="message" className="uppercase text-[10px] tracking-widest font-bold">Inquiry Details</Label>
-                <Textarea id="message" placeholder="How can we assist your investment?" className="bg-white/5 border-white/10 focus:border-primary/50 min-h-[120px]" required />
-              </div>
-
-              <Button type="submit" className="w-full h-14 uppercase tracking-[0.2em] text-xs font-bold">
-                Send Inquiry
-              </Button>
-            </form>
-          </motion.div>
+            </div>
+          </div>
         </div>
+
+        {/* الجانب الأيمن: الفورم البرمجية المقفلة */}
+        <div className="bg-card rounded-3xl border border-white/10 p-8 w-full">
+          <form onSubmit={handleSendInquiry} className="space-y-6">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="text-xs font-bold uppercase tracking-wider block mb-2">First Name</label>
+                <input 
+                  name="firstName" 
+                  value={form.firstName} 
+                  onChange={handleChange} 
+                  placeholder="James" 
+                  className="w-full bg-background border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-[#d4af37] outline-none transition" 
+                />
+              </div>
+              <div>
+                <label className="text-xs font-bold uppercase tracking-wider block mb-2">Last Name</label>
+                <input 
+                  name="lastName" 
+                  value={form.lastName} 
+                  onChange={handleChange} 
+                  placeholder="Sutherland" 
+                  className="w-full bg-background border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-[#d4af37] outline-none transition" 
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="text-xs font-bold uppercase tracking-wider block mb-2">Email Address</label>
+              <input 
+                type="email"
+                name="email" 
+                value={form.email} 
+                onChange={handleChange} 
+                placeholder="james@luxury-assets.com" 
+                className="w-full bg-background border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-[#d4af37] outline-none transition" 
+              />
+            </div>
+
+            <div>
+              <label className="text-xs font-bold uppercase tracking-wider block mb-2">Inquiry Details</label>
+              <textarea 
+                name="details" 
+                value={form.details} 
+                onChange={handleChange} 
+                rows={5}
+                placeholder="How can we assist your investment?" 
+                className="w-full bg-background border border-white/10 rounded-xl px-4 py-3 text-sm text-white resize-none focus:border-[#d4af37] outline-none transition" 
+              />
+            </div>
+
+            <button 
+              type="submit" 
+              disabled={loading}
+              className="w-full bg-[#d4af37] hover:bg-[#c5a028] text-black font-bold uppercase tracking-widest text-sm py-4 rounded-xl shadow-lg transition-all border-none"
+            >
+              {loading ? 'Sending...' : 'Send Inquiry'}
+            </button>
+          </form>
+        </div>
+
       </div>
     </section>
   );
