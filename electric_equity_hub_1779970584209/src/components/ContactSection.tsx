@@ -24,28 +24,33 @@ export const ContactSection = () => {
   const handleSendInquiry = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!form.firstName || !form.lastName || !form.email || !form.details) {
+    // تنظيف المدخلات من أي مسافات مخفية في البداية أو النهاية
+    const cleanedEmail = form.email.trim();
+    const cleanedFirstName = form.firstName.trim();
+    const cleanedLastName = form.lastName.trim();
+    const cleanedDetails = form.details.trim();
+
+    if (!cleanedFirstName || !cleanedLastName || !cleanedEmail || !cleanedDetails) {
       alert('Please fill in all fields');
       return;
     }
 
     setLoading(true);
     try {
-      // إرسال البيانات للتمبلت الجديد المخصص للاستفسارات
       await emailjs.send(
         'service_dofj8zm',
-        'template_23qo6e8', // التمبلت الجديد الخاص بك
+        'template_23qo6e8',
         {
-          firstName: form.firstName,
-          lastName: form.lastName,
-          email: form.email,
-          details: form.details,
+          firstName: cleanedFirstName,
+          lastName: cleanedLastName,
+          email: cleanedEmail, // الإيميل اللي العميل كتبه أياً كان هو إيه
+          details: cleanedDetails,
         },
         'BF-13QkE62Bm0oidq'
       );
 
       alert('Your inquiry has been sent successfully!');
-      setForm({ firstName: '', lastName: '', email: '', details: '' }); // تفريغ الحقول بعد النجاح
+      setForm({ firstName: '', lastName: '', email: '', details: '' }); // تصفير الحقول
     } catch (err) {
       alert('Something went wrong. Please try again.');
     }
@@ -126,7 +131,7 @@ export const ContactSection = () => {
             <div>
               <label className="text-xs font-bold uppercase tracking-wider block mb-2">Email Address</label>
               <input 
-                type="email"
+                type="text"
                 name="email" 
                 value={form.email} 
                 onChange={handleChange} 
