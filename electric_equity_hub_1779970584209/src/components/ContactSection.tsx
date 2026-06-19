@@ -91,7 +91,7 @@ export const ContactSection = () => {
               </div>
               <div>
                 <span className="text-xs text-muted-foreground block uppercase tracking-wider">Investment Inquiries</span>
-                <span className="font-medium text-[#d4af37]">invest@helpis.ev</span>
+                <span className="font-medium text-[#d4af37]">helpisfor@gmail.com</span>
               </div>
             </div>
           </div>
