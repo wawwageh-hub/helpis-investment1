@@ -81,7 +81,7 @@ export const ContactSection = () => {
               </div>
               <div>
                 <span className="text-xs text-muted-foreground block uppercase tracking-wider">Direct Line</span>
-                <span className="font-medium">+41 22 555 0199</span>
+                <span className="font-medium">+201113737994</span>
               </div>
             </div>
 
